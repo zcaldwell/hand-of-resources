@@ -20,9 +20,21 @@ describe('hand-of-resources routes', () => {
     expect(res.body).toEqual({ id: expect.any(String), ...expected });
   });
 
-  it.only('get all fruits', async () => {
+  it('get all fruits', async () => {
     const expected = await Fruit.findAll();
     const res = await request(app).get('/api/v1/fruits');
+
+    expect(res.body).toEqual(expected);
+  });
+
+  it.only('get fruit by id', async () => {
+    const fruit = {
+      id: expect.any(String),
+      name: 'Apple',
+      isStoneFruit: '0',
+    };
+    const expected = await Fruit.insert(fruit);
+    const res = await request(app).get(`/api/v1/fruits/${expected.id}`);
 
     expect(res.body).toEqual(expected);
   });
