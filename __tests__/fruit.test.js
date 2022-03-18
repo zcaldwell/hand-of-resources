@@ -27,7 +27,7 @@ describe('hand-of-resources routes', () => {
     expect(res.body).toEqual(expected);
   });
 
-  it.only('get fruit by id', async () => {
+  it('get fruit by id', async () => {
     const fruit = {
       id: expect.any(String),
       name: 'Apple',
@@ -35,6 +35,19 @@ describe('hand-of-resources routes', () => {
     };
     const expected = await Fruit.insert(fruit);
     const res = await request(app).get(`/api/v1/fruits/${expected.id}`);
+
+    expect(res.body).toEqual(expected);
+  });
+
+  it.only('updates a fruit', async () => {
+    const initial = {
+      name: 'Pear',
+      inStoneFruit: '1',
+    };
+    const expected = await Fruit.insert(initial);
+    const res = await request(app)
+      .patch(`/api/v1/fruits/${expected.id}`)
+      .send({ is_stone_fruit: '0' });
 
     expect(res.body).toEqual(expected);
   });
