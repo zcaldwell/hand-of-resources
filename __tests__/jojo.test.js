@@ -22,4 +22,19 @@ describe('hand-of-resources routes', () => {
 
     expect(res.body).toEqual({ id: expect.any(String), ...expected });
   });
+
+  it('get all jojos', async () => {
+    const expected = await Jojo.findAll();
+    const res = await request(app).get('/api/v1/jojos');
+
+    expect(res.body).toEqual(expected);
+  });
+
+  it('get jojo by ID', async () => {
+    const initial = { name: 'Jotarro Joestar', part: 'Stardust Crusaders ' };
+    const expected = await Jojo.insert(initial);
+    const res = await request(app).get(`/api/v1/jojos/${expected.id}`);
+
+    expect(res.body).toEqual(expected);
+  });
 });
