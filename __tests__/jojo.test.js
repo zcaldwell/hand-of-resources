@@ -37,4 +37,26 @@ describe('hand-of-resources routes', () => {
 
     expect(res.body).toEqual(expected);
   });
+
+  it('updates a jojo', async () => {
+    const initial = { name: 'Jolyne Joestar', part: 'Stone Ocean' };
+    const jojo = await Jojo.insert(initial);
+    const res = await request(app)
+      .patch(`/api/v1/jojos/${jojo.id}`)
+      .send({ name: 'Jolyne Cujoh' });
+
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      name: 'Jolyne Cujoh',
+      part: 'Stone Ocean',
+    });
+  });
+
+  it('deletes a jojo', async () => {
+    const initial = { name: 'Jolyne Cujoh', part: 'Stone Ocean' };
+    const jojo = await Jojo.insert(initial);
+    const res = await request(app).delete(`/api/v1/jojos/${jojo.id}`);
+
+    expect(res.body).toEqual(jojo);
+  });
 });
