@@ -52,4 +52,12 @@ describe('any-api routes', () => {
       date: '2/2/2002',
     });
   });
+
+  it('deletes a birthday', async () => {
+    const initial = { name: 'Hank', date: '3/3/2003' };
+    const birthday = await Birthday.insert(initial);
+    const res = await request(app).delete(`/api/v1/birthdays/${birthday.id}`);
+
+    expect(res.body).toEqual(birthday);
+  });
 });

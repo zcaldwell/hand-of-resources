@@ -51,4 +51,12 @@ describe('hand-of-resources routes', () => {
 
     expect(res.body).toEqual({ ...expected, isStoneFruit: false });
   });
+
+  it('deletes a fruit', async () => {
+    const initial = { name: 'Watermelon', isStoneFruit: false };
+    const fruit = await Fruit.insert(initial);
+    const res = await request(app).delete(`/api/v1/fruits/${fruit.id}`);
+
+    expect(res.body).toEqual(fruit);
+  });
 });
