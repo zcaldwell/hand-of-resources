@@ -30,4 +30,12 @@ describe('any-api routes', () => {
 
     expect(res.body).toEqual(expected);
   });
+
+  it('get birthday by ID', async () => {
+    const birthday = { name: 'Jon', date: '12/12/2012' };
+    const expected = await Birthday.insert(birthday);
+    const res = await request(app).get(`/api/v1/birthdays/${expected.id}`);
+
+    expect(res.body).toEqual(expected);
+  });
 });
