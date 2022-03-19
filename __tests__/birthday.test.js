@@ -38,4 +38,18 @@ describe('any-api routes', () => {
 
     expect(res.body).toEqual(expected);
   });
+
+  it('update a birthday', async () => {
+    const initial = { name: 'Bobby', date: '01/01/2001' };
+    const birthday = await Birthday.insert(initial);
+    const res = await request(app)
+      .patch(`/api/v1/birthdays/${birthday.id}`)
+      .send({ date: '2/2/2002' });
+
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      name: 'Bobby',
+      date: '2/2/2002',
+    });
+  });
 });
