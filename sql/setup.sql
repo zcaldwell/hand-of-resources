@@ -2,6 +2,7 @@
 -- The SQL in this file will be executed when you run `npm run setup-db`
 DROP TABLE IF EXISTS jojos;
 DROP TABLE IF EXISTS fruits;
+DROP TABLE IF EXISTS birthdays;
 
 CREATE TABLE jojos (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -12,5 +13,11 @@ CREATE TABLE jojos (
 CREATE TABLE fruits (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
-    is_stone_fruit BIT
-)
+    is_stone_fruit BOOLEAN NOT NULL
+);
+
+CREATE TABLE birthdays (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    date DATE NOT NULL 
+);

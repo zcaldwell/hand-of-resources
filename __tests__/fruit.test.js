@@ -14,7 +14,7 @@ describe('hand-of-resources routes', () => {
   });
 
   it('updates a  fruit', async () => {
-    const expected = { name: 'Peach', isStoneFruit: '1' };
+    const expected = { name: 'Peach', isStoneFruit: true };
     const res = await request(app).post('/api/v1/fruits').send(expected);
 
     expect(res.body).toEqual({ id: expect.any(String), ...expected });
@@ -31,7 +31,7 @@ describe('hand-of-resources routes', () => {
     const fruit = {
       id: expect.any(String),
       name: 'Apple',
-      isStoneFruit: '0',
+      isStoneFruit: false,
     };
     const expected = await Fruit.insert(fruit);
     const res = await request(app).get(`/api/v1/fruits/${expected.id}`);
@@ -39,16 +39,16 @@ describe('hand-of-resources routes', () => {
     expect(res.body).toEqual(expected);
   });
 
-  it.only('updates a fruit', async () => {
+  it('updates a fruit', async () => {
     const initial = {
       name: 'Pear',
-      inStoneFruit: '1',
+      isStoneFruit: true,
     };
     const expected = await Fruit.insert(initial);
     const res = await request(app)
       .patch(`/api/v1/fruits/${expected.id}`)
-      .send({ is_stone_fruit: '0' });
+      .send({ isStoneFruit: false });
 
-    expect(res.body).toEqual(expected);
+    expect(res.body).toEqual({ ...expected, isStoneFruit: false });
   });
 });
