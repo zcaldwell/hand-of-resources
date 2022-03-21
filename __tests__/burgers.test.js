@@ -51,4 +51,12 @@ describe('hand-of-resources routes', () => {
       rating: 8,
     });
   });
+
+  it('deletes a burger', async () => {
+    const initial = { name: 'Killer Burger', rating: 2 };
+    const burger = await Burger.insert(initial);
+    const res = await request(app).delete(`/api/v1/burgers/${burger.id}`);
+
+    expect(res.body).toEqual(burger);
+  });
 });
