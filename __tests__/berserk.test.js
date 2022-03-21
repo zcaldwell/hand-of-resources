@@ -43,4 +43,18 @@ describe('any-api routes', () => {
 
     expect(res.body).toEqual(expected);
   });
+
+  it('updates an Arc', async () => {
+    const initial = {
+      arc: 'Convction Arc',
+      arcStart: 14,
+      arcEnd: 30,
+    };
+    const expected = await Berserk.insert(initial);
+    const res = await request(app)
+      .patch(`/api/v1/berserk/${expected.id}`)
+      .send({ arcEnd: 21 });
+
+    expect(res.body).toEqual({ ...expected, arcEnd: 21 });
+  });
 });
