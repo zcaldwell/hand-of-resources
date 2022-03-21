@@ -22,4 +22,11 @@ describe('hand-of-resources routes', () => {
 
     expect(res.body).toEqual({ id: expect.any(String), ...expected });
   });
+
+  it('get all burgers', async () => {
+    const expected = await Burger.findAll();
+    const res = await request(app).get('/api/v1/burgers');
+
+    expect(res.body).toEqual(expected);
+  });
 });
