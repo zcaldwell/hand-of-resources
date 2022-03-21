@@ -37,4 +37,18 @@ describe('hand-of-resources routes', () => {
 
     expect(res.body).toEqual(expected);
   });
+
+  it('updates a burger', async () => {
+    const initial = { name: 'Hi the spoot', rating: 8 };
+    const burger = await Burger.insert(initial);
+    const res = await request(app)
+      .patch(`/api/v1/burgers/${burger.id}`)
+      .send({ name: 'Hit the Spot' });
+
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      name: 'Hit the Spot',
+      rating: 8,
+    });
+  });
 });
