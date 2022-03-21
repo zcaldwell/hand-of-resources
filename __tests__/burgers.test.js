@@ -29,4 +29,12 @@ describe('hand-of-resources routes', () => {
 
     expect(res.body).toEqual(expected);
   });
+
+  it('get Burger by ID', async () => {
+    const initial = { name: 'Killer Burger', rating: 2 };
+    const expected = await Burger.insert(initial);
+    const res = await request(app).get(`/api/v1/burgers/${expected.id}`);
+
+    expect(res.body).toEqual(expected);
+  });
 });
