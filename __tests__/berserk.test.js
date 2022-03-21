@@ -30,4 +30,17 @@ describe('any-api routes', () => {
 
     expect(res.body).toEqual(expected);
   });
+
+  it('get arc by id', async () => {
+    const arc = {
+      id: expect.any(String),
+      arc: 'Conviction Arc',
+      arcStart: 14,
+      arcEnd: 21,
+    };
+    const expected = await Berserk.insert(arc);
+    const res = await request(app).get(`/api/v1/berserk/${expected.id}`);
+
+    expect(res.body).toEqual(expected);
+  });
 });
