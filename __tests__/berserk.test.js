@@ -57,4 +57,12 @@ describe('any-api routes', () => {
 
     expect(res.body).toEqual({ ...expected, arcEnd: 21 });
   });
+
+  it('deletes an arc', async () => {
+    const initial = { arc: 'Fantasia Arc', arcStart: 35, arcEnd: 41 };
+    const arc = await Berserk.insert(initial);
+    const res = await request(app).delete(`/api/v1/berserk/${arc.id}`);
+
+    expect(res.body).toEqual(arc);
+  });
 });
